@@ -12,5 +12,4 @@ allennlp predict \
     --include-package semqa \
     --silent \
     --batch-size 1 \ 
-    resources/iclr_cameraready/ckpt/model.tar.gz \
-    test/input.jsonl
+    resources/iclr_cameraready/ckpt/model.tar.gz test/input.jsonl

@@ -21,7 +21,6 @@ from pytorch_pretrained_bert import BertTokenizer
 from semqa.domain_languages.drop_language import DropLanguage, Date, get_empty_language_object
 from datasets.drop import constants
 
-
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
@@ -802,8 +801,7 @@ class DROPReaderNew(DatasetReader):
             _, (x, y), _ = date_men
             if y < max_passage_len:
                 pruned_date_mens.append(date_men)
-                pruned_old_dateidxs.append(date_idx)
-
+                pruned_old_dateidxs.append(date_idx)    
         new_date_values = []  # New passage date values
         new2old_dateidx = {}
         old2new_dateidx = {}
@@ -814,9 +812,7 @@ class DROPReaderNew(DatasetReader):
                 new2old_dateidx[new_date_idx] = old_date_idx
                 old2new_dateidx[old_date_idx] = new_date_idx
                 new_date_values.append(date_value)
-
         new_date_entidxs = [old2new_dateidx[x] for x in pruned_old_dateidxs]  # New passage date entidxs
-
         if date_grounding_supervision is not None:
             new_dategrounding_supervision = []
             for date_grounding in date_grounding_supervision:

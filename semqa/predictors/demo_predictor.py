@@ -115,7 +115,6 @@ class DROPDemoPredictor(Predictor):
                                    key=lambda x: x[0])
 
         passage_ners = spacyutils.getNER(new_passage_doc)
-
         (p_parsed_dates, p_normalized_date_idxs,
          p_normalized_date_values, _) = ner_process.parseDateNERS(passage_ners, passage_token_texts)
         (p_parsed_nums, p_normalized_num_idxs,
