@@ -83,14 +83,14 @@ def extract_custom_numbers(s):
 
 def get_date_from_string(s):
         dates = []
-        try:
-            for dt in datefinder.find_dates(s):
-                dates.append((dt.date().day, dt.date().month, dt.date().year))
-        except:
-            dates = []        
-        if len(dates)==0:
-            date  = extract_custom_date(s)
-            if not date:
+        date  = extract_custom_date(s)
+        if not date:
+            try:
+                for dt in datefinder.find_dates(s):
+                    dates.append((dt.date().day, dt.date().month, dt.date().year))
+            except:
+                dates = []        
+            if len(dates)==0:
                 num = extract_custom_numbers(s)
                 if num!=-1:
                     date = (num, 1, 0)
