@@ -84,6 +84,7 @@ def extract_custom_numbers(s):
 def get_date_from_string(s):
         dates = []
         date  = extract_custom_date(s)
+        dates.append(date)
         if not date:
             try:
                 for dt in datefinder.find_dates(s):
