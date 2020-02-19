@@ -3,6 +3,7 @@ from word2number import w2n
 from spacy.tokenizer import Tokenizer
 from spacy.lang.en import English
 import numpy
+import re
 
 nlp = English()
 tokenizer = nlp.Defaults.create_tokenizer(nlp)
@@ -13,6 +14,14 @@ words_to_frac = {"full":1, "half":0.5, "halves":0.5, "quarter":0.25, "quarters":
 def extract_custom_date(s):
     s = s.lower()
     date = None
+    if 'century' in s:
+        matches = re.findall("(\d+)", s)
+        for match in matches:
+            year = int(match)*100
+            day = 1
+            month = 1
+            break
+        date = (day, month, year)
     if 'week' in s:
         nums = get_number_from_string(s)
         if nums==-1:
@@ -80,13 +89,13 @@ def get_date_from_string(s):
         except:
             dates = []        
         if len(dates)==0:
-            num = extract_custom_numbers(s)
-            if num!=-1:
-                date = (num, 1, 0)
-                print ('found custom DATE for', s, '->', date)
-            else:    
-                date  = extract_custom_date(s)
-                if not date:
+            date  = extract_custom_date(s)
+            if not date:
+                num = extract_custom_numbers(s)
+                if num!=-1:
+                    date = (num, 1, 0)
+                    print ('found custom DATE for', s, '->', date)
+                else:  
                     print ('found no DATE for ', s) 
                     date = (-1, -1, -1)  
             dates = [date]            
